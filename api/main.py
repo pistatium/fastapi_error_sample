@@ -4,7 +4,7 @@ from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 
-from api.errors import ApiError, InvalidFizzBuzzInput, WrongFizzBuzzAnswer, DontSetDummyParameter
+from api.errors import ApiError, InvalidFizzBuzzInput, WrongFizzBuzzAnswer, DontSetDummyParameter, error_response
 from api.fizzbuzz import fizzbuzz
 
 app = FastAPI()
@@ -26,7 +26,8 @@ async def api_error_handler(request, err: ApiError):
     return JSONResponse(FizzBuzzResponse(passed=False, message=f'{err.detail}\n{err.reason}').dict())
 
 
-@app.post("/check_fizzbuzz", response_model=FizzBuzzRequest)
+@app.post("/check_fizzbuzz", response_model=FizzBuzzRequest,
+          responses=error_response([DontSetDummyParameter, InvalidFizzBuzzInput, WrongFizzBuzzAnswer]))
 def check_fizzbuzz(req: FizzBuzzRequest):
     if req.dummy:
         # 実際は validator でやると綺麗
