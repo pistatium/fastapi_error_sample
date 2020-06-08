@@ -1,10 +1,12 @@
 def fizzbuzz(n: int) -> str:
+    # n を指定したときにfizzbuzzの文字列を返す
     if 0 >= n:
         raise ValueError
     return ','.join(_nth_fizzbuzz(i) for i in range(1, n + 1))
 
 
 def _nth_fizzbuzz(n: int) -> str:
+    # n番目のfizzbuzzの出力
     if n % 15 == 0:
         return 'FizzBuzz'
     if n % 5 == 0:

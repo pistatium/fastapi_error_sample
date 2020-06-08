@@ -1,7 +1,6 @@
 from typing import Optional
 
-from fastapi import FastAPI
-from fastapi.responses import JSONResponse
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
 from api.errors import ApiError, InvalidFizzBuzzInput, WrongFizzBuzzAnswer, DontSetDummyParameter, error_response
@@ -23,7 +22,7 @@ class FizzBuzzResponse(BaseModel):
 
 @app.exception_handler(ApiError)
 async def api_error_handler(request, err: ApiError):
-    return JSONResponse(FizzBuzzResponse(passed=False, message=f'{err.detail}\n{err.reason}').dict())
+    raise HTTPException(status_code=err.status_code, detail=f'{err.detail}\n{err.reason}')
 
 
 @app.post("/check_fizzbuzz", response_model=FizzBuzzRequest,

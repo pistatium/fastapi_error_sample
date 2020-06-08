@@ -5,7 +5,6 @@ class ApiError(Exception):
     """ エラーの基底となるクラス """
     status_code: int = 400
     detail: str = 'API error'  # エラー概要
-    reason: str = ''  # エラー理由(あれば)
 
     def __init__(self, reason: Optional[str] = None):
         if reason:
@@ -30,6 +29,7 @@ class WrongFizzBuzzAnswer(ApiError):
 
 
 def error_response(error_types: List[Type[ApiError]]) -> dict:
+    # error_types に列挙した ApiError を Swagger の書式で定義する
     d = {}
     for et in error_types:
         if not d.get(et.status_code):
