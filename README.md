@@ -15,4 +15,7 @@ pip install -r requirements.txt
 uvicorn api.main:app --reload
 ```
 
-## SwaggerUI
+## OpenAPI
+
+SwaggerEditor で見る
+http://editor.swagger.io/?raw=https://raw.githubusercontent.com/pistatium/fastapi_error_sample/master/openapi.json
