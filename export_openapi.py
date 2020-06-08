@@ -1,2 +1,5 @@
+import json
 from api.main import app
-print(app.openapi())
+
+with open('openapi.json', 'w') as f:
+    json.dump(app.openapi(), f)
