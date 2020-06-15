@@ -29,7 +29,7 @@ class WrongFizzBuzzAnswer(ApiError):
 
 
 def error_response(error_types: List[Type[ApiError]]) -> dict:
-    # error_types に列挙した ApiError を Swagger の書式で定義する
+    # error_types に列挙した ApiError を OpenAPI の書式で定義する
     d = {}
     for et in error_types:
         if not d.get(et.status_code):
